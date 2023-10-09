@@ -73,6 +73,31 @@ LOCK TABLES `customers` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `menuitems`
+--
+
+DROP TABLE IF EXISTS `menuitems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `menuitems` (
+  `MenuItemID` int NOT NULL,
+  `CourseName` varchar(255) NOT NULL,
+  `StarterName` varchar(255) NOT NULL,
+  `DesertName` varchar(255) NOT NULL,
+  PRIMARY KEY (`MenuItemID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menuitems`
+--
+
+LOCK TABLES `menuitems` WRITE;
+/*!40000 ALTER TABLE `menuitems` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menuitems` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `menus`
 --
 
@@ -81,9 +106,12 @@ DROP TABLE IF EXISTS `menus`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `menus` (
   `MenuID` int NOT NULL AUTO_INCREMENT,
+  `MenuItemID` int NOT NULL,
+  `MenuName` varchar(255) NOT NULL,
   `Cuisine` varchar(255) NOT NULL,
-  `Type` varchar(255) NOT NULL,
-  PRIMARY KEY (`MenuID`)
+  PRIMARY KEY (`MenuID`),
+  KEY `MenuItemID_idx` (`MenuItemID`),
+  CONSTRAINT `MenuItemID` FOREIGN KEY (`MenuItemID`) REFERENCES `menuitems` (`MenuItemID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -188,4 +216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-09  7:17:10
+-- Dump completed on 2023-10-09  9:14:39
